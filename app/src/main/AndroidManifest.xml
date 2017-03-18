@@ -15,11 +15,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Login"></activity>
-        <activity android:name=".Registration"></activity>
-        <activity android:name=".Leaveapplication"></activity>
-        <activity android:name=".Leavedetails"></activity>
-        <activity android:name=".Salarydetails"></activity>
+        <activity android:name=".Login"/>
+        <activity android:name=".Registration"/>
+        <activity android:name=".Leaveapplication"/>
+        <activity android:name=".Leavedetails"/>
+        <activity android:name=".Salarydetails"/>
     </application>
 
 </manifest>
