@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">E-LEAVE</string>
+    <string name="logout">LogOut</string>
 </resources>

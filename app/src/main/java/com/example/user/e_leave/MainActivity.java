@@ -3,8 +3,12 @@ package com.example.user.e_leave;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * Created by User on 18-01-2017.
@@ -43,6 +47,16 @@ public class MainActivity extends Activity {
 
     }
 
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main,menu);
+        return true;
     }
+
+    public void logout(MenuItem item) {
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(this,Login.class));
+        finish();
+    }
+}
 
