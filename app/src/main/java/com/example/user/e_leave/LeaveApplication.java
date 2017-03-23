@@ -15,13 +15,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class LeaveApplication extends AppCompatActivity{
-    EditText edt_Facid,edt_Leavetype,edt_From,edt_To,reason_edt;
+    EditText edt_Facid,edt_Leavetype,edt_From,edt_To,reason_edt,edt_Leavedays;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.leaveapplication);
         edt_Facid = (EditText) findViewById(R.id.edt_Facid);
         edt_Leavetype = (EditText) findViewById(R.id.edt_Leavetype);
+        edt_Leavedays = (EditText) findViewById(R.id.edt_Leavedays);
         edt_From = (EditText) findViewById(R.id.edt_From);
         edt_To = (EditText) findViewById(R.id.edt_To);
         reason_edt = (EditText) findViewById(R.id.reson_edt);
@@ -32,7 +33,7 @@ public class LeaveApplication extends AppCompatActivity{
         btsubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validation(edt_Facid.getText().toString().trim(), edt_Leavetype.getText().toString().trim(), edt_From.getText().toString().trim(), edt_To.getText().toString().trim(), reason_edt.getText().toString().trim());
+                validation(edt_Facid.getText().toString().trim(), edt_Leavetype.getText().toString().trim(), edt_From.getText().toString().trim(), edt_To.getText().toString().trim(), reason_edt.getText().toString().trim(), edt_Leavedays.getText().toString().trim());
             }
         });
         Button btapplycancel= (Button) findViewById(R.id.btapplycancel);
@@ -44,8 +45,8 @@ public class LeaveApplication extends AppCompatActivity{
         });
     }
 
-    private void validation(String facid,String Ltype,String from,String to,String reason) {
-        if (facid.length() == 0 || Ltype.length() == 0 || from.length() == 0||to.length() == 0) {
+    private void validation(String facid,String Ltype,String from,String to,String reason, String Ldays) {
+        if (facid.length() == 0 || Ltype.length() == 0 || from.length() == 0||to.length() == 0||Ldays.isEmpty()) {
             if (facid.length() == 0) {
                 edt_Facid.setError("Field can't be blank.");
             }
@@ -58,6 +59,10 @@ public class LeaveApplication extends AppCompatActivity{
             }
 
             if (to.length() == 0) {
+                edt_To.setError("Field can't be blank.");
+            }
+
+            if (Ldays.length() == 0) {
                 edt_To.setError("Field can't be blank.");
             }
         }else if (!Ltype.toLowerCase().equals("sick")
@@ -73,6 +78,18 @@ public class LeaveApplication extends AppCompatActivity{
                             dialog.dismiss();
                         }
                     }).show();
+        }else if (!Ldays.toLowerCase().equals("full")
+                && !Ldays.toLowerCase().equals("half")
+                && !Ldays.toLowerCase().equals("many")){
+            edt_Leavedays.setError("Incorrect Leave Day");
+            new AlertDialog.Builder(this)
+                    .setMessage("Leave days should be any one of the following:\n1. Half\n2. Full\n3. Many")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).show();
         }else if (!from.matches("^([0-2][0-9]||3[0-1])-(0[0-9]||1[0-2])-([0-9][0-9])?[0-9][0-9]$")){
             edt_From.setError("Incorrect date format");
         }else if (!to.matches("^([0-2][0-9]||3[0-1])-(0[0-9]||1[0-2])-([0-9][0-9])?[0-9][0-9]$")){
@@ -82,6 +99,7 @@ public class LeaveApplication extends AppCompatActivity{
             ref.child("type").setValue(Ltype);
             ref.child("from").setValue(from);
             ref.child("to").setValue(to);
+            ref.child("days_type").setValue(Ldays);
             ref.child("reason").setValue(reason);
             toastMsg("Success");
             finish();
