@@ -103,16 +103,17 @@ public class Registration extends Activity {
                                 Toast.makeText(Registration.this, "Registration Failed",
                                         Toast.LENGTH_SHORT).show();
                             }else {
-                                DatabaseReference database = FirebaseDatabase.getInstance().getReference().child("users");
-                                database.child("name").setValue(name);
-                                database.child("faculty_id").setValue(facultyId);
-                                database.child("designation").setValue(desgn);
-                                database.child("phone").setValue(phone);
-                                database.child("email").setValue(email);
-                                database.child("department").setValue(dept);
+                                DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("users");
+                                myRef = myRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                myRef.child("name").setValue(name);
+                                myRef.child("faculty_id").setValue(facultyId);
+                                myRef.child("designation").setValue(desgn);
+                                myRef.child("phone").setValue(phone);
+                                myRef.child("email").setValue(email);
+                                myRef.child("department").setValue(dept);
                                 Intent intent = new Intent(Registration.this, MainActivity.class);
                                 startActivity(intent);
-                                toastmsg("Welcome");
+                                toastmsg("Welcome, " + name);
                                 finish();
                             }
                             progressDialog.dismiss();
