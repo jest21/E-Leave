@@ -18,7 +18,7 @@ public class Salarydetails extends Activity {
         btsalaryok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Salarydetails.this,Login.class);
+                Intent intent=new Intent(Salarydetails.this,MainActivity.class);
                 startActivity(intent);
                 finish();
             }

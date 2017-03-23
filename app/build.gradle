@@ -8,6 +8,7 @@ android {
         applicationId "com.example.user.e_leave"
         minSdkVersion 16
         targetSdkVersion 25
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
     }
@@ -25,6 +26,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.3.0'
 
     compile 'com.google.firebase:firebase-auth:10.0.1'
-    compile 'com.firebaseui:firebase-ui-auth:1.1.1'
+    compile 'com.google.firebase:firebase-database:10.2.0'
 }
 apply plugin: 'com.google.gms.google-services'

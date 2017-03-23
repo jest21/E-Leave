@@ -18,7 +18,7 @@ public class Leavedetails extends Activity {
         btdetailsok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Leavedetails.this,Login.class);
+                Intent intent=new Intent(Leavedetails.this,MainActivity.class);
                 startActivity(intent);
                 finish();
             }

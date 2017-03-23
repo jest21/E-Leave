@@ -26,7 +26,7 @@ public class Leaveapplication extends Activity{
             @Override
             public void onClick(View v) {
                 toastMsg("Leave applied");
-                Intent intent=new Intent(Leaveapplication.this,Login.class);
+                Intent intent=new Intent(Leaveapplication.this,MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -56,7 +56,7 @@ public class Leaveapplication extends Activity{
             }
         }
             else{
-            Intent intent=new Intent(Leaveapplication.this,Login.class);
+            Intent intent=new Intent(Leaveapplication.this,MainActivity.class);
             startActivity(intent);
             finish();
 
