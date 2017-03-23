@@ -14,6 +14,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class LeaveApplication extends AppCompatActivity{
     EditText edt_Facid,edt_Leavetype,edt_From,edt_To,reason_edt,edt_Leavedays;
     @Override
@@ -95,17 +98,46 @@ public class LeaveApplication extends AppCompatActivity{
         }else if (!to.matches("^([0-2][0-9]||3[0-1])-(0[0-9]||1[0-2])-([0-9][0-9])?[0-9][0-9]$")){
             edt_To.setError("Incorrect date format");
         } else{
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("leave_applications").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-            ref.child("type").setValue(Ltype);
-            ref.child("from").setValue(from);
-            ref.child("to").setValue(to);
-            ref.child("days_type").setValue(Ldays);
-            ref.child("reason").setValue(reason);
-            toastMsg("Success");
-            finish();
+            Calendar fromDate = Calendar.getInstance();
+            fromDate.set(
+                    Integer.parseInt(from.split("-")[2]),
+                    Integer.parseInt(from.split("-")[1]),
+                    Integer.parseInt(from.split("-")[0])
+            );
+            Calendar toDate = Calendar.getInstance();
+            toDate.set(
+                    Integer.parseInt(from.split("-")[2]),
+                    Integer.parseInt(from.split("-")[1]),
+                    Integer.parseInt(from.split("-")[0])
+            );
+            if (fromDate.getTimeInMillis() > toDate.getTimeInMillis()){
+
+                edt_From.setError("From date comes after to date");
+                edt_To.setError("To date comes before from date");
+
+            }else if (diffBetween(fromDate,toDate) > 10){
+
+                edt_From.setError("Difference between dates cannot be more than 10");
+                edt_To.setError("Difference between dates cannot be more than 10");
+
+            }else {
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("leave_applications").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                ref.child("type").setValue(Ltype);
+                ref.child("from").setValue(from);
+                ref.child("to").setValue(to);
+                ref.child("days_type").setValue(Ldays);
+                ref.child("reason").setValue(reason);
+                toastMsg("Success");
+                finish();
+            }
         }
 
         }
+
+    private int diffBetween(Calendar fromDate, Calendar toDate) {
+        long diffInMillis = toDate.getTimeInMillis() - fromDate.getTimeInMillis();
+        return ((int)diffInMillis)/(24 * 60 * 60 * 1000);
+    }
 
     public void toastMsg(String msg)
     {

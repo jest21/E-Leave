@@ -15,6 +15,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="30"
             android:layout_weight="1"/>
     </LinearLayout>
     <LinearLayout
@@ -30,6 +31,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/leavesTakenTextView"
             android:layout_weight="1"/>
     </LinearLayout>
     <LinearLayout
@@ -45,6 +47,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/leavesRemainingTextView"
             android:layout_weight="1"/>
     </LinearLayout>
     <LinearLayout
