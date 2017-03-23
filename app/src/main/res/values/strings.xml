@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">E-LEAVE</string>
     <string name="logout">LogOut</string>
+    <string name="dd_mm_yyyy">DD-MM-YYYY</string>
 </resources>

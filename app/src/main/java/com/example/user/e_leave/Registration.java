@@ -1,10 +1,10 @@
 package com.example.user.e_leave;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,12 +18,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import static android.content.ContentValues.TAG;
-
 /***
  * Created by User on 24-01-2017.
  */
-public class Registration extends Activity {
+public class Registration extends AppCompatActivity {
     EditText edt_facualtyId, edt_Name, edt_Dept, edt_Designation, edt_Phone, edt_Emailid, edt_Password;
 
     FirebaseAuth auth;

@@ -1,19 +1,21 @@
 package com.example.user.e_leave;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-/**
- * Created by User on 18-01-2017.
- */
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstancestate) {
         super.onCreate(savedInstancestate);
@@ -22,7 +24,7 @@ public class MainActivity extends Activity {
         btapplyleave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Leaveapplication.class);
+                Intent intent = new Intent(MainActivity.this, LeaveApplication.class);
                 startActivity(intent);
             }
 
@@ -31,7 +33,7 @@ public class MainActivity extends Activity {
         btleavedetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Leavedetails.class);
+                Intent intent = new Intent(MainActivity.this, LeaveDetails.class);
                 startActivity(intent);
             }
         });
@@ -39,11 +41,29 @@ public class MainActivity extends Activity {
         btsalarydetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Salarydetails.class);
+                Intent intent = new Intent(MainActivity.this, SalaryDetails.class);
                 startActivity(intent);
-                finish();
             }
         });
+
+        if (!FirebaseAuth.getInstance().getCurrentUser().getEmail().equals(CurrentUser.getEmail(this))){
+            FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            CurrentUser.setEmail(MainActivity.this,dataSnapshot.child("email").getValue().toString());
+                            CurrentUser.setFacultyId(MainActivity.this,dataSnapshot.child("faculty_id").getValue().toString());
+                            CurrentUser.setDesignation(MainActivity.this,dataSnapshot.child("designation").getValue().toString());
+                            CurrentUser.setName(MainActivity.this,dataSnapshot.child("name").getValue().toString());
+                            Toast.makeText(MainActivity.this, "Welcome, " + CurrentUser.getName(MainActivity.this), Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+        }
 
     }
 

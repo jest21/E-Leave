@@ -1,15 +1,12 @@
 package com.example.user.e_leave;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-/**
- * Created by User on 18-01-2017.
- */
-public class Salarydetails extends Activity {
+public class SalaryDetails extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,7 +15,7 @@ public class Salarydetails extends Activity {
         btsalaryok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Salarydetails.this,MainActivity.class);
+                Intent intent=new Intent(SalaryDetails.this,MainActivity.class);
                 startActivity(intent);
                 finish();
             }

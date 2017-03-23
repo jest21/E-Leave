@@ -19,9 +19,9 @@
         </activity>
         <activity android:name=".MainActivity"/>
         <activity android:name=".Registration"/>
-        <activity android:name=".Leaveapplication"/>
-        <activity android:name=".Leavedetails"/>
-        <activity android:name=".Salarydetails"/>
+        <activity android:name=".LeaveApplication"/>
+        <activity android:name=".LeaveDetails"/>
+        <activity android:name=".SalaryDetails"/>
     </application>
 
 </manifest>
