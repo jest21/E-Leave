@@ -1,6 +1,7 @@
 package com.example.user.e_leave;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -88,11 +89,15 @@ public class Registration extends Activity {
 
 
         } else {
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setMessage("Registering...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
             auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
+                            Log.d("Registration", "createUserWithEmail:onComplete:" + task.isSuccessful());
 
                             if (!task.isSuccessful()) {
                                 Toast.makeText(Registration.this, "Registration Failed",
@@ -110,7 +115,7 @@ public class Registration extends Activity {
                                 toastmsg("Welcome");
                                 finish();
                             }
-
+                            progressDialog.dismiss();
                         }
                     });
         }
