@@ -19,7 +19,7 @@ import java.util.Calendar;
 public class LeaveDetails extends AppCompatActivity {
 
     TextView leavesRemainingTextView, leavesTakenTextView;
-    int leavesTaken = 0;
+    int halfDayLeaves = 0, fullDayLeaves = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +59,20 @@ public class LeaveDetails extends AppCompatActivity {
                                     Integer.parseInt(toDateStr.split("-")[1]),
                                     Integer.parseInt(toDateStr.split("-")[0])
                             );
-                            leavesTaken += (toDate.get(Calendar.DAY_OF_MONTH) - fromDate.get(Calendar.DAY_OF_MONTH));
-                            leavesTaken += 1;
+
+                            if (!child.child("type").getValue().toString().toLowerCase().equals("maternity")){
+                                if (child.child("days_type").getValue().toString().toLowerCase().equals("half")){
+                                    halfDayLeaves += (toDate.get(Calendar.DAY_OF_MONTH) - fromDate.get(Calendar.DAY_OF_MONTH));
+                                    halfDayLeaves += 1;
+                                }else {
+                                    fullDayLeaves += (toDate.get(Calendar.DAY_OF_MONTH) - fromDate.get(Calendar.DAY_OF_MONTH));
+                                    fullDayLeaves += 1;
+                                }
+                            }
                         }
-                        leavesTakenTextView.setText(String.valueOf(leavesTaken));
-                        if (leavesTaken > 0){
+                        double totalNoOfLeaves = (halfDayLeaves/2.0) + fullDayLeaves;
+                        leavesTakenTextView.setText(String.valueOf(totalNoOfLeaves));
+                        if (totalNoOfLeaves > 0){
                             leavesRemainingTextView.setText("0");
                         }else {
                             leavesRemainingTextView.setText("1");
