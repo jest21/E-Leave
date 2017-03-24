@@ -31,8 +31,6 @@ public class LeaveDetails extends AppCompatActivity {
         btdetailsok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(LeaveDetails.this,MainActivity.class);
-                startActivity(intent);
                 finish();
             }
         });
