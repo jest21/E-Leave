@@ -19,6 +19,7 @@
             android:enabled="false"
             android:layout_weight="1"/>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,8 +30,8 @@
             android:text="Leave type"
             android:layout_weight="1"
             android:textColor="@android:color/black"/>
-        <EditText
-            android:id="@+id/edt_Leavetype"
+        <Spinner
+            android:id="@+id/spinner_Leavetype"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
@@ -46,8 +47,8 @@
             android:text="Leave days"
             android:layout_weight="1"
             android:textColor="@android:color/black"/>
-        <EditText
-            android:id="@+id/edt_Leavedays"
+        <Spinner
+            android:id="@+id/spinner_Leavedays"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>

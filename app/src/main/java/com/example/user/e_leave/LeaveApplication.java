@@ -1,13 +1,13 @@
 package com.example.user.e_leave;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,17 +18,27 @@ import java.util.Calendar;
 import java.util.Random;
 
 public class LeaveApplication extends AppCompatActivity{
-    EditText edt_Facid,edt_Leavetype,edt_From,edt_To,reason_edt,edt_Leavedays;
+    EditText edt_Facid,edt_From,edt_To,reason_edt;
+    Spinner spinnerLtype, spinnerLdays;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.leaveapplication);
         edt_Facid = (EditText) findViewById(R.id.edt_Facid);
-        edt_Leavetype = (EditText) findViewById(R.id.edt_Leavetype);
-        edt_Leavedays = (EditText) findViewById(R.id.edt_Leavedays);
         edt_From = (EditText) findViewById(R.id.edt_From);
         edt_To = (EditText) findViewById(R.id.edt_To);
         reason_edt = (EditText) findViewById(R.id.reson_edt);
+        spinnerLdays = (Spinner) findViewById(R.id.spinner_Leavedays);
+        spinnerLtype = (Spinner) findViewById(R.id.spinner_Leavetype);
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,new String[]{"Casual","Maternity","Sick","Other"});
+        arrayAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
+        spinnerLtype.setAdapter(arrayAdapter);
+
+        ArrayAdapter<String> arrayAdapter2 = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,new String[]{"Half","Full","Many"});
+        arrayAdapter2.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
+        spinnerLdays.setAdapter(arrayAdapter2);
 
         edt_Facid.setText(CurrentUser.getFacultyID(this));
 
@@ -47,7 +57,7 @@ public class LeaveApplication extends AppCompatActivity{
         btsubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validation(edt_Facid.getText().toString().trim(), edt_Leavetype.getText().toString().trim(), edt_From.getText().toString().trim(), edt_To.getText().toString().trim(), reason_edt.getText().toString().trim(), edt_Leavedays.getText().toString().trim());
+                validation(edt_Facid.getText().toString().trim(), spinnerLtype.getSelectedItem().toString().trim(), edt_From.getText().toString().trim(), edt_To.getText().toString().trim(), reason_edt.getText().toString().trim(), spinnerLdays.getSelectedItem().toString().trim());
             }
         });
         Button btapplycancel= (Button) findViewById(R.id.btapplycancel);
@@ -67,10 +77,6 @@ public class LeaveApplication extends AppCompatActivity{
             if (facid.length() == 0) {
                 edt_Facid.setError("Field can't be blank.");
             }
-            if (Ltype.length() == 0) {
-                edt_Leavetype.setError("Field can't be blank.");
-            }
-
             if (from.length() == 0) {
                 edt_From.setError("Field can't be blank.");
             }
@@ -82,31 +88,6 @@ public class LeaveApplication extends AppCompatActivity{
             if (Ldays.length() == 0) {
                 edt_To.setError("Field can't be blank.");
             }
-        }else if (!Ltype.toLowerCase().equals("sick")
-                && !Ltype.toLowerCase().equals("casual")
-                && !Ltype.toLowerCase().equals("maternity")
-                && !Ltype.toLowerCase().equals("other")) {
-            edt_Leavetype.setError("Incorrect Leave Type");
-            new AlertDialog.Builder(this)
-                    .setMessage("Leave type should be any one of the following:\n1. Sick\n2. Casual\n3. Maternity\n4. Other")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    }).show();
-        }else if (!Ldays.toLowerCase().equals("full")
-                && !Ldays.toLowerCase().equals("half")
-                && !Ldays.toLowerCase().equals("many")){
-            edt_Leavedays.setError("Incorrect Leave Day");
-            new AlertDialog.Builder(this)
-                    .setMessage("Leave days should be any one of the following:\n1. Half\n2. Full\n3. Many")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    }).show();
         }else if (!from.matches("^([0-2][0-9]||3[0-1])-(0[0-9]||1[0-2])-([0-9][0-9])?[0-9][0-9]$")){
             edt_From.setError("Incorrect date format");
         }else if (!to.matches("^([0-2][0-9]||3[0-1])-(0[0-9]||1[0-2])-([0-9][0-9])?[0-9][0-9]$")){
