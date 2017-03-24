@@ -103,7 +103,7 @@ public class SalaryDetails extends AppCompatActivity {
                                     deductableAmountForFullDays = salPerDay * fullDayLeaves,
                                     deductableAmountForHalfDays = (salPerDay/2) * halfDayLeaves,
                                     payableSalary = basicPay + profDa + profHra + insurance - deductableAmountForFullDays - deductableAmountForHalfDays;
-                            salaryTextView.setText(String.valueOf(payableSalary));
+                            salaryTextView.setText(String.valueOf(payableSalary).substring(0,String.valueOf(payableSalary).indexOf(".")+2));
                             daTextView.setText(String.valueOf(profDa));
                             hraTextView.setText(String.valueOf(profHra));
                             insuranceTextView.setText(String.valueOf(insurance));
