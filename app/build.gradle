@@ -8,7 +8,6 @@ android {
         applicationId "com.example.user.e_leave"
         minSdkVersion 16
         targetSdkVersion 25
-        multiDexEnabled true
         versionCode 1
         versionName "1.0"
     }

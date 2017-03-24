@@ -1,5 +1,6 @@
 package com.example.user.e_leave;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -66,6 +67,12 @@ public class Login extends AppCompatActivity {
     }
 
     private void validation(String id, String pass) {
+
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please Wait...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
         mAuth.signInWithEmailAndPassword(id, pass)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -84,6 +91,7 @@ public class Login extends AppCompatActivity {
                             startActivity(intent);
                             finish();
                         }
+                        progressDialog.dismiss();
                     }
                 });
     }

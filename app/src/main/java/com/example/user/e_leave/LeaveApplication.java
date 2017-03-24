@@ -1,10 +1,10 @@
 package com.example.user.e_leave;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,7 +15,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
-import java.util.Date;
 
 public class LeaveApplication extends AppCompatActivity{
     EditText edt_Facid,edt_Leavetype,edt_From,edt_To,reason_edt,edt_Leavedays;
@@ -46,6 +45,9 @@ public class LeaveApplication extends AppCompatActivity{
                 finish();
             }
         });
+
+        getSupportActionBar().setTitle("Leave Application: " + new Months().getNameOfThisMonth());
+
     }
 
     private void validation(String facid,String Ltype,String from,String to,String reason, String Ldays) {
@@ -106,20 +108,23 @@ public class LeaveApplication extends AppCompatActivity{
             );
             Calendar toDate = Calendar.getInstance();
             toDate.set(
-                    Integer.parseInt(from.split("-")[2]),
-                    Integer.parseInt(from.split("-")[1]),
-                    Integer.parseInt(from.split("-")[0])
+                    Integer.parseInt(to.split("-")[2]),
+                    Integer.parseInt(to.split("-")[1]),
+                    Integer.parseInt(to.split("-")[0])
             );
-            if (fromDate.getTimeInMillis() > toDate.getTimeInMillis()){
+            Log.d("DATE_FROM", fromDate.toString());
+            Log.d("DATE_TO", toDate.toString());
+            if (fromDate.getTime().after(toDate.getTime())){
 
                 edt_From.setError("From date comes after to date");
                 edt_To.setError("To date comes before from date");
 
-            }else if (diffBetween(fromDate,toDate) > 10){
-
-                edt_From.setError("Difference between dates cannot be more than 10");
-                edt_To.setError("Difference between dates cannot be more than 10");
-
+            }else if(Integer.parseInt(from.split("-")[1])-1 != new Months().thisMonth()
+                    || Integer.parseInt(from.split("-")[2]) != 2017) {
+                edt_From.setError("Month should be " + new Months().getNameOfThisMonth() + " and year should be 2017");
+            }else if(Integer.parseInt(to.split("-")[1])-1 != new Months().thisMonth()
+                    || Integer.parseInt(to.split("-")[2]) != 2017) {
+                edt_To.setError("Month should be " + new Months().getNameOfThisMonth() + " and year should be 2017");
             }else {
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("leave_applications").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
                 ref.child("type").setValue(Ltype);
@@ -133,11 +138,6 @@ public class LeaveApplication extends AppCompatActivity{
         }
 
         }
-
-    private int diffBetween(Calendar fromDate, Calendar toDate) {
-        long diffInMillis = toDate.getTimeInMillis() - fromDate.getTimeInMillis();
-        return ((int)diffInMillis)/(24 * 60 * 60 * 1000);
-    }
 
     public void toastMsg(String msg)
     {
