@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
+import java.util.Random;
 
 public class LeaveApplication extends AppCompatActivity{
     EditText edt_Facid,edt_Leavetype,edt_From,edt_To,reason_edt,edt_Leavedays;
@@ -30,6 +31,17 @@ public class LeaveApplication extends AppCompatActivity{
         reason_edt = (EditText) findViewById(R.id.reson_edt);
 
         edt_Facid.setText(CurrentUser.getFacultyID(this));
+
+        int month = new Months().thisMonth()+1;
+
+        if (month>9){
+            edt_From.setHint("DD-" + month + "-2017");
+            edt_To.setHint("DD-" + month + "-2017");
+        }else {
+            edt_From.setHint("DD-0" + month + "-2017");
+            edt_To.setHint("DD-0" + month + "-2017");
+        }
+
 
         Button btsubmit= (Button) findViewById(R.id.btsubmit);
         btsubmit.setOnClickListener(new View.OnClickListener() {
@@ -126,7 +138,8 @@ public class LeaveApplication extends AppCompatActivity{
                     || Integer.parseInt(to.split("-")[2]) != 2017) {
                 edt_To.setError("Month should be " + new Months().getNameOfThisMonth() + " and year should be 2017");
             }else {
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("leave_applications").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("leave_applications").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .child(new Months().getNameOfThisMonth()).child(randomIdGenerator());
                 ref.child("type").setValue(Ltype);
                 ref.child("from").setValue(from);
                 ref.child("to").setValue(to);
@@ -138,6 +151,17 @@ public class LeaveApplication extends AppCompatActivity{
         }
 
         }
+
+    public String randomIdGenerator(){
+        char[] chars = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < 12; i++) {
+            char c = chars[random.nextInt(chars.length)];
+            sb.append(c);
+        }
+        return sb.toString();
+    }
 
     public void toastMsg(String msg)
     {
