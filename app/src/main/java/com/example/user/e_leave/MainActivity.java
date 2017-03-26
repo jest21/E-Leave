@@ -78,5 +78,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this,Login.class));
         finish();
     }
+
+    public void helpActivity(MenuItem item) {
+        startActivity(new Intent(this,SendHelp.class));
+    }
 }
 

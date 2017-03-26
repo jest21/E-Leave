@@ -3,8 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:title="@string/help"
+        android:onClick="helpActivity"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_action_help"/>
+
+    <item
         android:title="@string/logout"
         android:onClick="logout"
+        android:icon="@drawable/logout"
         app:showAsAction="always"/>
+
 
 </menu>

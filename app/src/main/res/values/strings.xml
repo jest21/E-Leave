@@ -32,4 +32,9 @@
     <string name="desig">Designation. eg: HOD, Asst. Professor</string>
     <string name="phone">Phone Number</string>
     <string name="reset_password">Reset Password</string>
+    <string name="help">Help</string>
+    <string name="title_activity_send_help">SendHelp</string>
+    <string name="your_name">Your Name</string>
+    <string name="message_subject">Message Subject</string>
+    <string name="query_here">Your Query Here</string>
 </resources>
