@@ -4,7 +4,7 @@ package com.example.user.e_leave;
 import java.util.Calendar;
 import java.util.HashMap;
 
-public class Months {
+class Months {
     private HashMap<String,Integer> NO_OF_DAYS_IN_MONTH;
     private String[] MONTHS = {
             "January",
@@ -20,7 +20,7 @@ public class Months {
             "November",
             "December",
     };
-    public Months(){
+    Months(){
         NO_OF_DAYS_IN_MONTH = new HashMap<>();
         NO_OF_DAYS_IN_MONTH.put("January",31);
         NO_OF_DAYS_IN_MONTH.put("February",29);
@@ -36,15 +36,11 @@ public class Months {
         NO_OF_DAYS_IN_MONTH.put("December",31);
     }
 
-    public int thisMonth(){
+    int thisMonth(){
         return Calendar.getInstance().get(Calendar.MONTH);
     }
 
-    public int getNoOfDaysInThisMonth(){
-        return NO_OF_DAYS_IN_MONTH.get(MONTHS[thisMonth()]);
-    }
-
-    public String getNameOfThisMonth(){
+    String getNameOfThisMonth(){
         return MONTHS[thisMonth()];
     }
 }
