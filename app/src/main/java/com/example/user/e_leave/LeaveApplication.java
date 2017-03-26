@@ -1,6 +1,7 @@
 package com.example.user.e_leave;
 
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +21,7 @@ import java.util.Random;
 public class LeaveApplication extends AppCompatActivity{
     EditText edt_Facid,edt_From,edt_To,reason_edt;
     Spinner spinnerLtype, spinnerLdays;
+    TextInputLayout toLayout, fromLayout, reasonLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,10 @@ public class LeaveApplication extends AppCompatActivity{
         reason_edt = (EditText) findViewById(R.id.reson_edt);
         spinnerLdays = (Spinner) findViewById(R.id.spinner_Leavedays);
         spinnerLtype = (Spinner) findViewById(R.id.spinner_Leavetype);
+
+        toLayout = (TextInputLayout) findViewById(R.id.textInputLayoutTo);
+        fromLayout = (TextInputLayout) findViewById(R.id.textInputLayoutFrom);
+        reasonLayout = (TextInputLayout) findViewById(R.id.textInputLayoutReason);
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,new String[]{"Casual","Maternity","Sick","Other"});
         arrayAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
@@ -45,11 +51,11 @@ public class LeaveApplication extends AppCompatActivity{
         int month = new Months().thisMonth()+1;
 
         if (month>9){
-            edt_From.setHint("DD-" + month + "-2017");
-            edt_To.setHint("DD-" + month + "-2017");
+            fromLayout.setHint("From (DD-" + month + "-2017)");
+            toLayout.setHint("To (DD-" + month + "-2017)");
         }else {
-            edt_From.setHint("DD-0" + month + "-2017");
-            edt_To.setHint("DD-0" + month + "-2017");
+            fromLayout.setHint("From (DD-0" + month + "-2017)");
+            toLayout.setHint("To (DD-0" + month + "-2017)");
         }
 
 
@@ -73,25 +79,28 @@ public class LeaveApplication extends AppCompatActivity{
     }
 
     private void validation(String facid,String Ltype,String from,String to,String reason, String Ldays) {
+        toLayout.setErrorEnabled(false);
+        fromLayout.setErrorEnabled(false);
+        reasonLayout.setErrorEnabled(false);
+        toLayout.setErrorEnabled(true);
+        fromLayout.setErrorEnabled(true);
+        reasonLayout.setErrorEnabled(true);
         if (facid.length() == 0 || Ltype.length() == 0 || from.length() == 0||to.length() == 0||Ldays.isEmpty()) {
             if (facid.length() == 0) {
                 edt_Facid.setError("Field can't be blank.");
             }
             if (from.length() == 0) {
-                edt_From.setError("Field can't be blank.");
+                fromLayout.setError("Field can't be blank.");
             }
 
             if (to.length() == 0) {
-                edt_To.setError("Field can't be blank.");
+                toLayout.setError("Field can't be blank.");
             }
 
-            if (Ldays.length() == 0) {
-                edt_To.setError("Field can't be blank.");
-            }
         }else if (!from.matches("^([0-2][0-9]||3[0-1])-(0[0-9]||1[0-2])-([0-9][0-9])?[0-9][0-9]$")){
-            edt_From.setError("Incorrect date format");
+            fromLayout.setError("Incorrect date format");
         }else if (!to.matches("^([0-2][0-9]||3[0-1])-(0[0-9]||1[0-2])-([0-9][0-9])?[0-9][0-9]$")){
-            edt_To.setError("Incorrect date format");
+            toLayout.setError("Incorrect date format");
         } else{
             Calendar fromDate = Calendar.getInstance();
             fromDate.set(
@@ -105,19 +114,19 @@ public class LeaveApplication extends AppCompatActivity{
                     Integer.parseInt(to.split("-")[1]),
                     Integer.parseInt(to.split("-")[0])
             );
-            Log.d("DATE_FROM", fromDate.toString());
-            Log.d("DATE_TO", toDate.toString());
             if (fromDate.getTime().after(toDate.getTime())){
 
-                edt_From.setError("From date comes after to date");
-                edt_To.setError("To date comes before from date");
+                fromLayout.setError("From date comes after to date");
+                toLayout.setError("To date comes before from date");
 
             }else if(Integer.parseInt(from.split("-")[1])-1 != new Months().thisMonth()
                     || Integer.parseInt(from.split("-")[2]) != 2017) {
-                edt_From.setError("Month should be " + new Months().getNameOfThisMonth() + " and year should be 2017");
+                fromLayout.setError("Month should be " + new Months().getNameOfThisMonth() + " and year should be 2017");
             }else if(Integer.parseInt(to.split("-")[1])-1 != new Months().thisMonth()
                     || Integer.parseInt(to.split("-")[2]) != 2017) {
-                edt_To.setError("Month should be " + new Months().getNameOfThisMonth() + " and year should be 2017");
+                toLayout.setError("Month should be " + new Months().getNameOfThisMonth() + " and year should be 2017");
+            }else if (Ltype.toLowerCase().equals("other") && reason.isEmpty()){
+                reasonLayout.setError("Please specify your reason");
             }else {
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("leave_applications").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                         .child(new Months().getNameOfThisMonth()).child(randomIdGenerator());
