@@ -26,4 +26,9 @@
     <string name="login">login</string>
     <string name="new_user">NEW USER</string>
     <string name="forgot_password">Forgot Password?</string>
+    <string name="register">Register</string>
+    <string name="full_name">Full Name</string>
+    <string name="dept">Department</string>
+    <string name="desig">Designation. eg: HOD, Asst. Professor</string>
+    <string name="phone">Phone Number</string>
 </resources>
