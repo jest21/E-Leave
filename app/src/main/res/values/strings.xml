@@ -11,4 +11,9 @@
     <string name="reason">Reason</string>
     <string name="submit">Submit</string>
     <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="leaves_remaining">Leaves Remaining</string>
+    <string name="leaves_taken">Leaves Taken</string>
+    <string name="_30_days">30 days</string>
+    <string name="total_no_of_working_days">Total No.of Working Days</string>
 </resources>

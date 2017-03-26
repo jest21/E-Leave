@@ -70,11 +70,11 @@ public class LeaveDetails extends AppCompatActivity {
                             }
                         }
                         double totalNoOfLeaves = (halfDayLeaves/2.0) + fullDayLeaves;
-                        leavesTakenTextView.setText(String.valueOf(totalNoOfLeaves));
+                        leavesTakenTextView.setText(String.valueOf(totalNoOfLeaves) + " days");
                         if (totalNoOfLeaves > 0){
-                            leavesRemainingTextView.setText("0");
+                            leavesRemainingTextView.setText("0 days");
                         }else {
-                            leavesRemainingTextView.setText("1");
+                            leavesRemainingTextView.setText("1 day");
                         }
                         progressDialog.dismiss();
                     }
