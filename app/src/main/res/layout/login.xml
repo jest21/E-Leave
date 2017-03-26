@@ -8,48 +8,53 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
+    android:background="@color/colorBackground"
     tools:context="com.example.user.e_leave.Login">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="EMAIL ID"
-                android:textColor="@android:color/black"/>
 
-        <EditText
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/emailInputLayout">
+
+        <android.support.design.widget.TextInputEditText
             android:id="@+id/edt_Username"
             android:layout_width="match_parent"
             android:inputType="textEmailAddress"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:hint="@string/email_id"
+            android:textColor="@color/colorSecondaryTextColor"
+            android:textSize="20sp"
+            android:layout_height="wrap_content"/>
 
-        </LinearLayout>
-    <LinearLayout
+    </android.support.design.widget.TextInputLayout>
+
+
+
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="PASSWORD"
-            android:textColor="@android:color/black"/>
-        <EditText
+        android:id="@+id/passwordInputLayout">
+
+        <android.support.design.widget.TextInputEditText
             android:id="@+id/edt_Password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:layout_weight="1"/>
-    </LinearLayout>
+            android:textColor="@color/colorSecondaryTextColor"
+            android:textSize="20sp"
+            android:hint="@string/password"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:text="@string/forgot_password"
+        android:gravity="center"
+        android:onClick="forgotPassword"
+        android:textColor="@color/colorAccent"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -58,13 +63,22 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="login"
+            android:text="@string/login"
+            android:textAllCaps="true"
             android:id="@+id/btlogin"
+            android:textColor="@color/colorTextColor"
+            android:textSize="20sp"
+            android:background="@color/colorButtonColor"
+            style="?android:attr/buttonBarStyle"
             android:layout_weight="1"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="NEW USER"
+            android:text="@string/new_user"
+            android:background="@color/colorButtonColor"
+            style="?android:attr/buttonBarStyle"
+            android:textSize="20sp"
+            android:textColor="@color/colorTextColor"
             android:id="@+id/btnewuser"
             android:layout_weight="1"/>
         </LinearLayout>
