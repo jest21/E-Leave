@@ -18,11 +18,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".Registration" />
-        <activity android:name=".LeaveApplication" />
-        <activity android:name=".LeaveDetails" />
-        <activity android:name=".SalaryDetails" />
-        <activity android:name=".ForgotPassword"></activity>
+        <activity android:name=".Registration"
+            android:parentActivityName=".Login"/>
+        <activity android:name=".LeaveApplication"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".LeaveDetails"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".SalaryDetails"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".ForgotPassword"
+            android:parentActivityName=".Login"/>
     </application>
 
 </manifest>
