@@ -43,4 +43,5 @@
     <string name="maternity">Maternity</string>
     <string name="other">Other</string>
     <string name="leaves_remaining_">Leaves Remaining:</string>
+    <string name="deducted">Amount Deducted</string>
 </resources>

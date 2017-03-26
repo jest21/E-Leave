@@ -17,7 +17,7 @@ import java.util.Calendar;
 
 public class SalaryDetails extends AppCompatActivity {
 
-    TextView basicPayTextView, daTextView, hraTextView, leavesTextView, insuranceTextView, salaryTextView;
+    TextView basicPayTextView, daTextView, hraTextView, leavesTextView, insuranceTextView, salaryTextView, deductedAmounTextView;
 
     int halfDayLeaves = 0, fullDayLeaves = 0;
 
@@ -47,6 +47,7 @@ public class SalaryDetails extends AppCompatActivity {
         leavesTextView = (TextView) findViewById(R.id.leavesTextView);
         insuranceTextView = (TextView) findViewById(R.id.insuranceTextView);
         salaryTextView = (TextView) findViewById(R.id.salaryTextView);
+        deductedAmounTextView = (TextView) findViewById(R.id.deductAmountTextView);
 
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Calculating...");
@@ -59,29 +60,20 @@ public class SalaryDetails extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot child : dataSnapshot.getChildren()){
+
                             String fromDateStr = child.child("from").getValue().toString();
                             String toDateStr = child.child("to").getValue().toString();
-                            Calendar fromDate = Calendar.getInstance();
-                            fromDate.set(
-                                    Integer.parseInt(fromDateStr.split("-")[2]),
-                                    Integer.parseInt(fromDateStr.split("-")[1]),
-                                    Integer.parseInt(fromDateStr.split("-")[0])
-                            );
-                            Calendar toDate = Calendar.getInstance();
-                            toDate.set(
-                                    Integer.parseInt(toDateStr.split("-")[2]),
-                                    Integer.parseInt(toDateStr.split("-")[1]),
-                                    Integer.parseInt(toDateStr.split("-")[0])
-                            );
+
                             if (!child.child("type").getValue().toString().toLowerCase().equals("maternity")){
                                 if (child.child("days_type").getValue().toString().toLowerCase().equals("half")){
-                                    halfDayLeaves += (toDate.get(Calendar.DAY_OF_MONTH) - fromDate.get(Calendar.DAY_OF_MONTH));
+                                    halfDayLeaves += (Integer.parseInt(toDateStr.split("-")[0]) - Integer.parseInt(fromDateStr.split("-")[0]));
                                     halfDayLeaves += 1;
                                 }else {
-                                    fullDayLeaves += (toDate.get(Calendar.DAY_OF_MONTH) - fromDate.get(Calendar.DAY_OF_MONTH));
+                                    fullDayLeaves += (Integer.parseInt(toDateStr.split("-")[0]) - Integer.parseInt(fromDateStr.split("-")[0]));
                                     fullDayLeaves += 1;
                                 }
                             }
+                            
                         }
                         double totalNoOfLeaves = (halfDayLeaves/2.0) + fullDayLeaves;
                         leavesTextView.setText(String.valueOf(totalNoOfLeaves) + " days");
@@ -90,22 +82,26 @@ public class SalaryDetails extends AppCompatActivity {
                                     salPerDay = basicPay/30,
                                     deductableAmountForFullDays = salPerDay * fullDayLeaves,
                                     deductableAmountForHalfDays = (salPerDay/2) * halfDayLeaves,
-                                    payableSalary = basicPay + hodDa + hodHra - deductableAmountForFullDays - deductableAmountForHalfDays;
+                                    totalDeductedAmount = deductableAmountForFullDays + deductableAmountForHalfDays,
+                                    payableSalary = basicPay + hodDa + hodHra - totalDeductedAmount;
                             salaryTextView.setText("₹ " + String.valueOf(payableSalary) + "/-");
                             daTextView.setText("₹ " + String.valueOf(hodDa) + "/-");
                             hraTextView.setText("₹ " + String.valueOf(hodHra) + "/-");
                             insuranceTextView.setText("₹ " + String.valueOf(insurance) + "/-");
+                            deductedAmounTextView.setText("₹ " + String.valueOf(totalDeductedAmount).substring(0,String.valueOf(totalDeductedAmount).indexOf(".")+2) + "/-");
                             basicPayTextView.setText("₹ " + String.valueOf(basicPay) + "/-");
                         }else {
                             double basicPay = 35000,
                                     salPerDay = basicPay/30,
                                     deductableAmountForFullDays = salPerDay * fullDayLeaves,
                                     deductableAmountForHalfDays = (salPerDay/2) * halfDayLeaves,
-                                    payableSalary = basicPay + profDa + profHra + insurance - deductableAmountForFullDays - deductableAmountForHalfDays;
+                                    totalDeductedAmount = deductableAmountForFullDays + deductableAmountForHalfDays,
+                                    payableSalary = basicPay + profDa + profHra + insurance - totalDeductedAmount;
                             salaryTextView.setText("₹ " + String.valueOf(payableSalary).substring(0,String.valueOf(payableSalary).indexOf(".")+2) + "/-");
                             daTextView.setText("₹ " + String.valueOf(profDa) + "/-");
                             hraTextView.setText("₹ " + String.valueOf(profHra) + "/-");
                             insuranceTextView.setText("₹ " + String.valueOf(insurance) + "/-");
+                            deductedAmounTextView.setText("₹ " + String.valueOf(totalDeductedAmount).substring(0,String.valueOf(totalDeductedAmount).indexOf(".")+2) + "/-");
                             basicPayTextView.setText("₹ " + String.valueOf(basicPay) + "/-");
                         }
                         progressDialog.dismiss();
