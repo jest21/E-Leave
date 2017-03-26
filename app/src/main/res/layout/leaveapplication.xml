@@ -109,21 +109,27 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            style="?android:attr/buttonBarStyle"
-            android:textSize="20sp"
-            android:textColor="@color/colorSecondaryTextColor"
-            android:text="@string/submit"
-            android:id="@+id/btsubmit"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:text="@string/cancel"
             style="?android:attr/buttonBarStyle"
             android:textSize="20sp"
-            android:textColor="@color/colorSecondaryTextColor"
+            android:textColor="@color/colorTextColor"
             android:layout_weight="1"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:background="@color/colorButtonColor"
             android:id="@+id/btapplycancel"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="?android:attr/buttonBarStyle"
+            android:textSize="20sp"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:background="@color/colorButtonColor"
+            android:textColor="@color/colorTextColor"
+            android:text="@string/submit"
+            android:id="@+id/btsubmit"/>
     </LinearLayout>
 
 </LinearLayout>
