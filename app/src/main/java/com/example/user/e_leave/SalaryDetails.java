@@ -1,7 +1,6 @@
 package com.example.user.e_leave;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -85,29 +84,29 @@ public class SalaryDetails extends AppCompatActivity {
                             }
                         }
                         double totalNoOfLeaves = (halfDayLeaves/2.0) + fullDayLeaves;
-                        leavesTextView.setText(String.valueOf(totalNoOfLeaves));
+                        leavesTextView.setText(String.valueOf(totalNoOfLeaves) + " days");
                         if (CurrentUser.getDesignation(SalaryDetails.this).toLowerCase().equals("hod")){
                             double basicPay = 40000,
                                     salPerDay = basicPay/30,
                                     deductableAmountForFullDays = salPerDay * fullDayLeaves,
                                     deductableAmountForHalfDays = (salPerDay/2) * halfDayLeaves,
                                     payableSalary = basicPay + hodDa + hodHra - deductableAmountForFullDays - deductableAmountForHalfDays;
-                            salaryTextView.setText(String.valueOf(payableSalary));
-                            daTextView.setText(String.valueOf(hodDa));
-                            hraTextView.setText(String.valueOf(hodHra));
-                            insuranceTextView.setText(String.valueOf(insurance));
-                            basicPayTextView.setText(String.valueOf(basicPay));
+                            salaryTextView.setText("₹ " + String.valueOf(payableSalary) + "/-");
+                            daTextView.setText("₹ " + String.valueOf(hodDa) + "/-");
+                            hraTextView.setText("₹ " + String.valueOf(hodHra) + "/-");
+                            insuranceTextView.setText("₹ " + String.valueOf(insurance) + "/-");
+                            basicPayTextView.setText("₹ " + String.valueOf(basicPay) + "/-");
                         }else {
                             double basicPay = 35000,
                                     salPerDay = basicPay/30,
                                     deductableAmountForFullDays = salPerDay * fullDayLeaves,
                                     deductableAmountForHalfDays = (salPerDay/2) * halfDayLeaves,
                                     payableSalary = basicPay + profDa + profHra + insurance - deductableAmountForFullDays - deductableAmountForHalfDays;
-                            salaryTextView.setText(String.valueOf(payableSalary).substring(0,String.valueOf(payableSalary).indexOf(".")+2));
-                            daTextView.setText(String.valueOf(profDa));
-                            hraTextView.setText(String.valueOf(profHra));
-                            insuranceTextView.setText(String.valueOf(insurance));
-                            basicPayTextView.setText(String.valueOf(basicPay));
+                            salaryTextView.setText("₹ " + String.valueOf(payableSalary).substring(0,String.valueOf(payableSalary).indexOf(".")+2) + "/-");
+                            daTextView.setText("₹ " + String.valueOf(profDa) + "/-");
+                            hraTextView.setText("₹ " + String.valueOf(profHra) + "/-");
+                            insuranceTextView.setText("₹ " + String.valueOf(insurance) + "/-");
+                            basicPayTextView.setText("₹ " + String.valueOf(basicPay) + "/-");
                         }
                         progressDialog.dismiss();
                     }

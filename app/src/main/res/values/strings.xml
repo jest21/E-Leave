@@ -16,4 +16,9 @@
     <string name="leaves_taken">Leaves Taken</string>
     <string name="_30_days">30 days</string>
     <string name="total_no_of_working_days">Total No.of Working Days</string>
+    <string name="basic_pay">Basic Pay</string>
+    <string name="da">DA</string>
+    <string name="hra">HRA</string>
+    <string name="insurance">Insurance</string>
+    <string name="total_salary">Total Salary</string>
 </resources>

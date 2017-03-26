@@ -20,13 +20,14 @@
             android:gravity="center_vertical"
             android:textSize="20sp"
             android:layout_weight="1"
-            android:textColor="@android:color/black"/>
+            android:textColor="@color/colorSecondaryTextColor"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:textSize="20sp"
             android:text="@string/_30_days"
+            android:textColor="@color/colorSecondaryTextColor"
             android:layout_weight="1"/>
     </LinearLayout>
     <LinearLayout
@@ -45,13 +46,14 @@
             android:layout_weight="1"
             android:text="@string/leaves_taken"
             android:textSize="20sp"
-            android:textColor="@android:color/black"/>
+            android:textColor="@color/colorSecondaryTextColor"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:id="@+id/leavesTakenTextView"
             android:textSize="20sp"
+            android:textColor="@color/colorSecondaryTextColor"
             android:layout_weight="1"/>
     </LinearLayout>
     <LinearLayout
@@ -70,12 +72,13 @@
             android:layout_weight="1"
             android:text="@string/leaves_remaining"
             android:textSize="20sp"
-            android:textColor="@android:color/black"/>
+            android:textColor="@color/colorSecondaryTextColor"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:textSize="20sp"
+            android:textColor="@color/colorSecondaryTextColor"
             android:id="@+id/leavesRemainingTextView"
             android:layout_weight="1"/>
     </LinearLayout>
