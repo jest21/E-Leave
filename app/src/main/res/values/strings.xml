@@ -37,4 +37,10 @@
     <string name="your_name">Your Name</string>
     <string name="message_subject">Message Subject</string>
     <string name="query_here">Your Query Here</string>
+    <string name="leaves_taken_">Leaves Taken:</string>
+    <string name="sick">Sick</string>
+    <string name="casual">Casual</string>
+    <string name="maternity">Maternity</string>
+    <string name="other">Other</string>
+    <string name="leaves_remaining_">Leaves Remaining:</string>
 </resources>
